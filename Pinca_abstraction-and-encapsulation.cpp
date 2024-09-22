@@ -24,7 +24,6 @@ class SavingsAccount : public Account {
     const double MINIMUM_BALANCE = 1000;
 
 public:
-	
     // Constructor with default balance
     SavingsAccount() : Account(MINIMUM_BALANCE) {
         if (balance < MINIMUM_BALANCE) {
@@ -39,12 +38,14 @@ public:
     }
 
     void withdraw(double amount) override {
-        if (amount <= balance) {
+        if (amount <= 0) {
+            cout << "Invalid amount. Please enter a positive value!" << endl;
+        } else if (balance - amount < MINIMUM_BALANCE) {
+            cout << "Insufficient balance! Withdrawals would reduce your balance below the minimum allowed of " << MINIMUM_BALANCE << "!" << endl;
+        } else {
             balance -= amount;
             cout << "----------------------------------------" << endl;
             cout << "> Your current savings balance is: " << balance << endl;
-        } else {
-            cout << "Insufficient balance!" << endl;
         }
     }
 
@@ -52,6 +53,7 @@ public:
         return balance;
     }
 };
+
 
 // Class representing Current account
 class CurrentAccount : public Account {
